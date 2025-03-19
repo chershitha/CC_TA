@@ -1,14 +1,20 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                sh 'ls -l main'  // Lists files in the 'main' directory to debug
+            }
+        }
         stage('Build') {
             steps {
-                sh 'g++ hello.cpp -o hello_exec'
+                sh 'g++ main/hello.cpp -o main/hello_exec'
             }
         }
         stage('Test') {
             steps {
-                sh './hello_exec'
+                sh './main/hello_exec'
             }
         }
         stage('Deploy') {
